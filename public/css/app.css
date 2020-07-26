@@ -1,0 +1,14 @@
+body {
+  background: rgb(147,147,147);
+  background: radial-gradient(circle, rgba(147,147,147,1) 0%, rgba(148,145,145,1) 100%);
+}
+
+textarea{
+  margin-left: 30%;
+}
+
+input{
+  width: 120px;
+  height: 20px;
+  border: none;
+}

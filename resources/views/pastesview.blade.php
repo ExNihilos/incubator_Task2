@@ -7,7 +7,8 @@
   <body>
     @foreach ($pastes as $paste)
     <div class="publicPastes">
-    <h3>{{$paste->type}}</h3>
+          <h3>{{$paste->pasteName}}</h3>
+          <h5>{{$paste->text}}</h5>
     </div>
     @endforeach
   </body>

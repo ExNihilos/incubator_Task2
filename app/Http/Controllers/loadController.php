@@ -20,14 +20,14 @@ class loadController extends Controller
   $contact->save();*/
 
     $paste = new Paste();
-    $paste ->text = $request->input('pasteName');
+    $paste ->pasteName = $request->input('pasteName');
     $paste ->text = $request->input('text');
     $paste ->expTime = $request->input('expTime');
     $paste ->type = $request->input('type');
     //$paste ->ref = $request->input('ref');
     $paste->save();
 
-    return redirect()->route('main')->with('success', 'Запись успешно сохранена'); //!важно
+    return redirect()->route('main')->with('success', 'Запись успешно сохранена');
   }
 
   public function getPublicPastes()

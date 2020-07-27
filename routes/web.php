@@ -18,5 +18,5 @@ Route::get('/', function () {
 })->name('main');;
 
 Route::post('/submit', 'loadController@submit')->name('submit');
-Route::post('/submit', 'loadController@getPublicPastes')->name('submit');
+//Route::post('/submit', 'loadController@getPublicPastes')->name('submit');
 Route::get('/allpaste', 'loadController@getPublicPastes')->name('allpublicpaste');

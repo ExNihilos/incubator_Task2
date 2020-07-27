@@ -1,14 +1,56 @@
 body {
   background: rgb(147,147,147);
-  background: radial-gradient(circle, rgba(147,147,147,1) 0%, rgba(148,145,145,1) 100%);
+  background: radial-gradient(circle, rgba(147,147,147,1) 46%, rgba(148,145,145,1) 50%);
+}
+
+label{
+  font-size: 16px;
+  font-weight: bold;
+}
+
+#labPasteName{
+  margin-left: 30%;
+}
+
+#pasteName{
+  margin-left: auto;
+  width: 300px;
 }
 
 textarea{
   margin-left: 30%;
+  resize: none;
+  margin-top: 1%;
+  font-size: 14px;
+
 }
 
-input{
+.buttonsDiv{
+  margin-left: 30%;
+}
+
+.buttons{
   width: 120px;
-  height: 20px;
-  border: none;
+  height: 40px;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.radiobuttons{
+
+  float: left;
+  width: 200px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.class{
+  margin-left: 10%;
+  float: left;
+  width: 900px;
+}
+
+.params{
+  float: left;
+  margin-top:15px;
 }

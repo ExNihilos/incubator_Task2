@@ -25,7 +25,7 @@
       </div>
       @endif
 
-      <a href="{{route('allpublicpaste')}}">Пасты</a>
+      <a id=pastesRef href="{{route('allpublicpaste')}}">Публичные пасты</a>
 
     <form action="{{route('submit')}}" method="post">
       @csrf
@@ -35,7 +35,7 @@
       <textarea name="text" rows="15" cols="70"></textarea>
       <div class="buttonsDiv" >
         <input id="loadbutton" type="submit" value="Загрузить" class="buttons">
-        <input id="clearbutton" type="button"  value="Очистить" class="buttons">
+        <input id="clearbutton" type="reset"  value="Очистить" class="buttons">
       </div>
     </div>
 
@@ -46,15 +46,15 @@
             <option value="00:10:00">10 минут</option>
             <option value="01:00:00">1 час</option>
             <option value="3:00:00">3 часа</option>
-            <option value="1:00:00:00">1 день</option>
-            <option value="7:00:00:00">1 неделя</option>
-            <option value="31:00:00:00">1 месяц</option>
-            <option value="00:00:00">без ограничения</option>
+            <option value="24:00:00">1 день</option>
+            <option value="168:00:00">1 неделя</option>
+            <option value="720:00:00">1 месяц</option>
+            <option> без ограничения</option>
           </select>
         </p>
         <div class="radiobuttons">
           <p><input type="radio" name="type" value="unlisted"> Доступ по ссылке</p>
-          <p><input type="radio" name="type" value="public"> Публичная</p>
+          <p><input type="radio" name="type" value="public" checked> Публичная</p>
         </div>
     </div>
     </form>

@@ -38,7 +38,7 @@ class loadController extends Controller
       ['pastes'=>$paste
       ->where('type','=','public')
       ->orderBy('created_at','desc')
-      ->take(2)
+      ->take(10)
       ->get()]); //Paste::all()
     /*$paste = new Paste();
     dd($paste->all());*/

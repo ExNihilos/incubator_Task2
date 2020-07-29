@@ -6,11 +6,11 @@
     <title>Просмотр пасты</title>
   </head>
   <body>
-    @foreach ($data as $paste)
+
     <div style="border-bottom:5px solid black" class="publicPastes">
-        <h3>{{$paste->pasteName}}</h3>
-        {{$paste->text}}
+        <h2>Название пасты: {{$data->pasteName}}</h2>
+        <h3>Дата создания: {{$data->created_at}} <br> </h3>
+        <p id = p1><h3>Текст: </h3>{{$data->text}}</p>
     </div>
-  @endforeach
   </body>
 </html>

@@ -29,26 +29,26 @@
     <form action="{{route('submit')}}" method="post">
       @csrf
       <div class="class">
-      <label for="pasteName" id="labPasteName">Название пасты:</label>
-      <input type="text" name="pasteName" id=pasteName>
-      <textarea name="text" rows="15" cols="70"> </textarea>
-      <div class="buttonsDiv" >
-        <input id="loadbutton" type="submit" value="Загрузить" class="buttons">
-        <input id="clearbutton" type="reset"  value="Очистить" class="buttons">
+        <label for="pasteName" id="labPasteName">Название пасты:</label>
+        <input type="text" name="pasteName" id=pasteName>
+        <textarea name="text" rows="15" cols="70"></textarea>
+        <div class="buttonsDiv" >
+          <input id="loadbutton" type="submit" value="Загрузить" class="buttons">
+          <input id="clearbutton" type="reset"  value="Очистить" class="buttons">
+        </div>
       </div>
-    </div>
 
       <div class="params">
         <p>
           <label for="expTime">Срок хранения:</label>
           <select name="expTime">
-            <option value="PT0H1M0S">10 минут</option>
+            <option value="PT0H10M0S">10 минут</option>
             <option value="PT1H0M0S">1 час</option>
             <option value="PT3H0M0S">3 часа</option>
             <option value="PT24H0M0S">1 день</option>
             <option value="PT168H0M0S">1 неделя</option>
             <option value="PT720H0M0S">1 месяц</option>
-            <option value="PT9999H0M0S">без ограничения</option> 
+            <option value=>без ограничения</option>
           </select>
         </p>
         <div class="radiobuttons">

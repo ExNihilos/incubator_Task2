@@ -9,15 +9,34 @@ class loadController extends Controller
 {
   public function submit(Request $request)
   {
-   $hash=$this->genHash();
-   $date = Carbon::now();
+    /*$validation = $request->validate([
+      'text' => 'required'
+    ]);*/
 
-    $time=$request->input('expTime');
-    $date->add(new \DateInterval($time));
+   $hash=$this->genHash();
+
+   if ($request->input('expTime') != null)
+   {
+     $date = Carbon::now();
+     $time=$request->input('expTime');
+     $date->add(new \DateInterval($time));
+
+     //config(['app.default' => Carbon::now()]);
+     //echo config(['app.default']);
+     //$newdate = Carbon::create(1,1,1,0,0,0);
+   }
+
+   else
+   {
+     echo "= null";
+     $date = null;
+   }
+
+  //  config(['app.default' -> $date]);
     $paste = new Paste();
     $paste ->pasteName = $request->input('pasteName');
     $paste ->text = $request->input('text');
-    $paste ->expTime = $date;  //$request->input('expTime'); //=$date
+    $paste ->expTime = $date;  //$request->input('expTime');
     $paste ->type = $request->input('type');
     $paste ->ref = $hash;
     $paste->save();
@@ -37,11 +56,14 @@ class loadController extends Controller
       ->orderBy('created_at','desc')
       ->take(10)
       ->get()]);
+
+    /*$paste = new Paste();
+    dd($paste->all());*/
   }
 
   public function genHash($length=8)
   {
-     return substr(md5(openssl_random_pseudo_bytes(20)),-$length);
+     return substr(md5(openssl_random_pseudo_bytes(20)), -$length);
   }
 
   public function showPaste($ref)
@@ -49,17 +71,27 @@ class loadController extends Controller
     $paste= new Paste;
     $date = Carbon::now();
     $curPaste = $paste->where('ref','=',$ref)->take(1)->get();
+
     foreach ($curPaste as $paste)
     {
-      if($date<$paste->expTime)
+      if ($paste->expTime!=null)
       {
-        return view ('onepaste', ['data' => $paste->where('ref','=',$ref)->get()]);
+        if($date<$paste->expTime)
+        {
+          return view ('onepaste', ['data' => $paste]);
+        }
+
+        else
+        {
+          echo  $paste->expTime, " - Срок хранения пасты истек!";
+        }
       }
 
       else
       {
-        echo  $paste->expTime, " - Срок хранения пасты истек!";
+        return view ('onepaste', ['data' => $paste]);
       }
+
     }
   }
 }

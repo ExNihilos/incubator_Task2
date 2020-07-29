@@ -18,7 +18,7 @@ class CreatePastesTable extends Migration
             $table->text('pasteName')->nullable();
             $table->text('text')->nullable();
             $table->string('type')->nullable();
-            $table->time('expTime')->nullable();
+            $table->datetime('expTime')->nullable();
             $table->string('ref')->nullable();
             $table->timestamps();
         });

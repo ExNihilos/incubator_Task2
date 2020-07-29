@@ -1,30 +1,23 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Paste;
-//use App\Models\Contact;
+use Carbon\Carbon;
 
 class loadController extends Controller
 {
   public function submit(Request $request)
   {
-    //$validation = $request->validate([
-    //  'text' => 'required'
-  //  ]);
+   $hash=$this->genHash();
+   $date = Carbon::now();
 
-/* $contact = new Contact();
-  $contact->text = $request->input('text');
-  $contact->new = $request->input('new');
-  $contact->save();*/
-
-
-    $hash=$this->genHash();
+    $time=$request->input('expTime');
+    $date->add(new \DateInterval($time));
     $paste = new Paste();
     $paste ->pasteName = $request->input('pasteName');
     $paste ->text = $request->input('text');
-    $paste ->expTime = $request->input('expTime');
+    $paste ->expTime = $date;  //$request->input('expTime'); //=$date
     $paste ->type = $request->input('type');
     $paste ->ref = $hash;
     $paste->save();
@@ -43,9 +36,7 @@ class loadController extends Controller
       ->where('type','=','public')
       ->orderBy('created_at','desc')
       ->take(10)
-      ->get()]); //Paste::all()
-    /*$paste = new Paste();
-    dd($paste->all());*/
+      ->get()]);
   }
 
   public function genHash($length=8)
@@ -55,11 +46,20 @@ class loadController extends Controller
 
   public function showPaste($ref)
   {
-    //echo $this->genHash();
     $paste= new Paste;
-    return view ('onepaste', ['data' => $paste->where('ref','=',$ref)->get()]);
+    $date = Carbon::now();
+    $curPaste = $paste->where('ref','=',$ref)->take(1)->get();
+    foreach ($curPaste as $paste)
+    {
+      if($date<$paste->expTime)
+      {
+        return view ('onepaste', ['data' => $paste->where('ref','=',$ref)->get()]);
+      }
+
+      else
+      {
+        echo  $paste->expTime, " - Срок хранения пасты истек!";
+      }
+    }
   }
-
-
-
 }

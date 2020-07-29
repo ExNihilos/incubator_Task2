@@ -1,5 +1,5 @@
 <?php
-
+use Carbon\Carbon;
 return [
 
     /*
@@ -12,6 +12,11 @@ return [
     | any other location as required by the application or its packages.
     |
     */
+
+        // Ваши значения по-умолчанию
+   'default' => Carbon::now(),
+
+
 
     'name' => env('APP_NAME', 'Laravel'),
 

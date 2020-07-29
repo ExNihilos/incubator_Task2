@@ -7,16 +7,15 @@
     <title>Задание2</title>
   </head>
 
-
   <body>
     @if(session('success'))
-    <div class="alert alert-success">
+    <div class="success">
     {{session('success')}}
     </div>
     @endif
 
     @if(@errors)
-      <div class="alert alert-danger">
+      <div class="errors">
       <ul>
         @foreach ($errors->all() as $error)
         <li>{{$error}}</li>
@@ -25,14 +24,14 @@
       </div>
       @endif
 
-      <a id=pastesRef href="{{route('allpublicpaste')}}">Публичные пасты</a>
+    <a id=pastesRef href="{{route('allpublicpaste')}}">Публичные пасты</a>
 
     <form action="{{route('submit')}}" method="post">
       @csrf
       <div class="class">
       <label for="pasteName" id="labPasteName">Название пасты:</label>
       <input type="text" name="pasteName" id=pasteName>
-      <textarea name="text" rows="15" cols="70"></textarea>
+      <textarea name="text" rows="15" cols="70"> </textarea>
       <div class="buttonsDiv" >
         <input id="loadbutton" type="submit" value="Загрузить" class="buttons">
         <input id="clearbutton" type="reset"  value="Очистить" class="buttons">
@@ -43,24 +42,20 @@
         <p>
           <label for="expTime">Срок хранения:</label>
           <select name="expTime">
-            <option value="00:10:00">10 минут</option>
-            <option value="01:00:00">1 час</option>
-            <option value="3:00:00">3 часа</option>
-            <option value="24:00:00">1 день</option>
-            <option value="168:00:00">1 неделя</option>
-            <option value="720:00:00">1 месяц</option>
-            <option> без ограничения</option>
+            <option value="PT0H1M0S">10 минут</option>
+            <option value="PT1H0M0S">1 час</option>
+            <option value="PT3H0M0S">3 часа</option>
+            <option value="PT24H0M0S">1 день</option>
+            <option value="PT168H0M0S">1 неделя</option>
+            <option value="PT720H0M0S">1 месяц</option>
+            <option value="PT9999H0M0S">без ограничения</option> 
           </select>
         </p>
         <div class="radiobuttons">
           <p><input type="radio" name="type" value="unlisted"> Доступ по ссылке</p>
           <p><input type="radio" name="type" value="public" checked> Публичная</p>
         </div>
-    </div>
+      </div>
     </form>
-
-
-
   </body>
-
 <html/>

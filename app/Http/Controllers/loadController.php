@@ -43,16 +43,18 @@ class loadController extends Controller
 
     return redirect()
     ->route('main')
-    ->with('success', "Запись успешно сохранена - ссылка на пасту: /allpaste/$hash");
+    ->with('success',  "Запись успешно сохранена!  Cсылка на пасту: /$hash");
   }
 
   public function getPublicPastes()
   {
+    $curDate = Carbon::now();
     $paste = new Paste;
     return view(
-      'pastesview',
+      'main',
       ['pastes'=>$paste
-      ->where('type','=','public')
+      ->where([['type','=','public'], ['expTime', '>', $curDate]])
+      ->orWhere([['type','=','public'], ['expTime', '=', null]])
       ->orderBy('created_at','desc')
       ->take(10)
       ->get()]);
@@ -69,14 +71,14 @@ class loadController extends Controller
   public function showPaste($ref)
   {
     $paste= new Paste;
-    $date = Carbon::now();
+    $curDate = Carbon::now();
     $curPaste = $paste->where('ref','=',$ref)->take(1)->get();
 
     foreach ($curPaste as $paste)
     {
       if ($paste->expTime!=null)
       {
-        if($date<$paste->expTime)
+        if($curDate<$paste->expTime)
         {
           return view ('onepaste', ['data' => $paste]);
         }
@@ -89,6 +91,11 @@ class loadController extends Controller
 
       else
       {
+        if ($paste->expTime == null)
+        {
+          $paste->expTime = "без ограничения";
+        }
+
         return view ('onepaste', ['data' => $paste]);
       }
 

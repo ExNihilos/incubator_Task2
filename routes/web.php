@@ -13,12 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('main');
-})->name('main');;
+})->name('main');;*/
 
 
 Route::post('/submit', 'loadController@submit')->name('submit');
-Route::get('/allpaste', 'loadController@getPublicPastes')->name('allpublicpaste');
-Route::get('/allpaste/{ref}', 'loadController@showPaste')->name('onepaste');
-//Route::get('/allpaste/{id}', 'loadController@showPaste')->name('onepaste');
+//Route::get('/allpaste', 'loadController@getPublicPastes')->name('allpublicpaste'); //Отдельная страница для публичных паст
+Route::get('/', 'loadController@getPublicPastes')->name('main');
+Route::get('/{ref}', 'loadController@showPaste')->name('onepaste'); // allpaste/{ref}
+//Route::get('/{ref}', 'loadController@getPublicPastes')->name('main');

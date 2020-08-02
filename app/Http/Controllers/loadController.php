@@ -46,41 +46,47 @@ class loadController extends Controller
     ->with('success',  "Запись успешно сохранена!  Cсылка на пасту: /$hash");
   }
 
-  public function getPublicPastes()
-  {
-    $curDate = Carbon::now();
-    $paste = new Paste;
-    return view(
-      'main',
-      ['pastes'=>$paste
-      ->where([['type','=','public'], ['expTime', '>', $curDate]])
-      ->orWhere([['type','=','public'], ['expTime', '=', null]])
-      ->orderBy('created_at','desc')
-      ->take(10)
-      ->get()]);
-
-    /*$paste = new Paste();
-    dd($paste->all());*/
-  }
-
   public function genHash($length=8)
   {
      return substr(md5(openssl_random_pseudo_bytes(20)), -$length);
   }
 
-  public function showPaste($ref)
+  public function showMainPage()
+  {
+    $publicPastes = $this -> getPublicPastes();
+    return view('main', ['pastes'=>$publicPastes]);
+
+    /*$paste = new Paste();
+    dd($paste->all());*/
+  }
+
+  public function getPublicPastes()
+  {
+    $curDate = Carbon::now();
+    $publicPastes = new Paste;
+    $publicPastes = $publicPastes
+    ->where([['type','=','public'], ['expTime', '>', $curDate]])
+    ->orWhere([['type','=','public'], ['expTime', '=', null]])
+    ->orderBy('created_at','desc')
+    ->take(10)
+    ->get();
+
+    return $publicPastes;
+  }
+
+  public function showOnePastePage($ref)
   {
     $paste= new Paste;
     $curDate = Carbon::now();
-    $curPaste = $paste->where('ref','=',$ref)->take(1)->get();
+    //$curPaste = $paste->where('ref','=',$ref)->take(1)->get();
+    $paste = $paste->where('ref','=',$ref)->first();
 
-    foreach ($curPaste as $paste)
-    {
       if ($paste->expTime!=null)
       {
         if($curDate<$paste->expTime)
         {
-          return view ('onepaste', ['data' => $paste]);
+          $publicPastes = $this->getPublicPastes();
+          return view ('onepaste', ['data' => $paste, 'pastes' => $publicPastes]);
         }
 
         else
@@ -91,14 +97,9 @@ class loadController extends Controller
 
       else
       {
-        if ($paste->expTime == null)
-        {
-          $paste->expTime = "без ограничения";
-        }
-
-        return view ('onepaste', ['data' => $paste]);
+        $paste->expTime = "без ограничения";
+        $publicPastes=$this->getPublicPastes();
+        return view ('onepaste', ['data' => $paste, 'pastes' => $publicPastes]);
       }
-
-    }
   }
 }

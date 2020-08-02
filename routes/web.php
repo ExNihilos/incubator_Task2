@@ -20,6 +20,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/submit', 'loadController@submit')->name('submit');
 //Route::get('/allpaste', 'loadController@getPublicPastes')->name('allpublicpaste'); //Отдельная страница для публичных паст
-Route::get('/', 'loadController@getPublicPastes')->name('main');
-Route::get('/{ref}', 'loadController@showPaste')->name('onepaste'); // allpaste/{ref}
+Route::get('/', 'loadController@showMainPage')->name('main');
+Route::get('/{ref}', 'loadController@showOnePastePage')->name('onepaste'); // allpaste/{ref}
 //Route::get('/{ref}', 'loadController@getPublicPastes')->name('main');

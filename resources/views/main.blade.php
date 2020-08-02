@@ -4,6 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/css/app.css">
+    <script type="text/javascript" src="/js/script.js">
+
+    </script>
     <title>Задание 2</title>
   </head>
 
@@ -32,8 +35,8 @@
     <form action="{{route('submit')}}" method="post">
       @csrf
         <label for="pasteName" id="labPasteName">Название пасты:</label>
-        <input type="text" name="pasteName" id=pasteName>
-        <textarea id="text" name="text" rows="15" cols="70"></textarea>
+        <input type="text" name="pasteName" id=pasteName required>
+        <textarea id="text" name="text" rows="15" cols="70" required></textarea>
         <div class="params">
           <p>
             <label for="expTime">Срок хранения:</label>
@@ -58,16 +61,8 @@
         </div>
      </form>
   </div>
-    <div id="publicPastes">
-      <div style="border-bottom:3px solid">  <label for="publicPastes" id="lab"><h2>Публичные пасты:</h2></label>  </div>
-        @foreach ($pastes as $paste)
-          <div style="border-bottom:3px solid; padding-bottom:10px;" class="paste">
-              <h3>{{$paste->pasteName}}</h3>
-              {{$paste->text}}
-              <a href="{{route('onepaste', $paste->ref)}}"><input type="button" name="btn1" value="Открыть"></a>
-          </div>
-        @endforeach
-    </div>
+
+  @include('inc.publicPastesView')
 
   </body>
-<html/>
+</html>

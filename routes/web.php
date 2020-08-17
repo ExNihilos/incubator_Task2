@@ -13,9 +13,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/*Route::get('/', function () {
-    return view('main');
-})->name('main');;*/
+// TODO REST машрутизация
+//Route::get('/', 'PasteController@create');
+//Route::post('/', 'PasteController@store');
+
+//Route::get('/paste/{paste}', 'PasteController@paste'); public function paste(Paste $paste)
+//Route::get('/paste/link/{link}', 'PasteController@linkedPaste');
+
+//Route::middleware(['auth:web'])->group( function () {
+//
+//    Route::prefix('/paste/{paste}')->group( function () {
+//        Route::put('/', 'PasteController@update');
+//        Route::delete('/', 'PasteController@delete');
+//    });
+//
+//});
+
+
+
 
 
 Route::post('/submit', 'loadController@submit')->name('submit');
